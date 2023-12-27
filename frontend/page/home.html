@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .div{
+            width: 20%;
+            margin: 10px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+        }
+        .img{
+            width: 100%;
+            height: 300px;
+        }
+        .title{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: #3B82F6;">
+        <div class="container" style="margin: auto;">
+            <nav>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <ui style="display: flex;">
+                            <li  class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="home.html">home</a></li>
+                        </ui>
+                    </div>
+                    <div>
+                        <ui style="display: flex;">
+                            <li id="signup"  class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="signup.html">signup</a></li>
+                            <li id="login" class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="login.html">login</a></li>
+                            <li id="name" class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="">username</a></li>
+                            <li id="logout" class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="">logout</a></li>
+                        </ui>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container" style="margin: auto;"> 
+
+        <div id="ui" style="display: flex; margin-top: 20px;"></div>
+    </div>
+</body>
+<script src="../js/nav.js"></script>
+<script>
+    const display = (data)=>{
+        data.map((ele)=>{
+            let img = document.createElement("img")
+            img.setAttribute("class","img")
+            img.src=ele.image
+            
+            let title = document.createElement("h1")
+            title.setAttribute("class","title")
+            title.innerHTML=ele.title
+
+            let price = document.createElement("h2")
+            price.setAttribute("class","price")
+            price.innerHTML=`₹ ${ele.price}`
+            
+            let category = document.createElement("h2")
+            category.setAttribute("class","category")
+            category.innerHTML=ele.category
+            
+            let buy = document.createElement("button")
+            buy.innerHTML="Buy Now"
+            buy.setAttribute("class","py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75")
+            
+            let div=  document.createElement("div")
+            div.setAttribute("class","div")
+            div.append(img,title,price,category,buy)
+            document.getElementById("ui").append(div)
+        })
+    }
+
+    fetch("http://localhost:8090/product/all")
+    .then((data)=>data.json())
+    .then((res)=>display(res))
+    .catch((error)=>error.message)
+</script>
+</html>

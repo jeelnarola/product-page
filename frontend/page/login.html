@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>signup</title>
+</head>
+<body>
+    <div id="nav"></div>
+    <header style="background-color: #3B82F6;">
+        <div class="container" style="margin: auto;">
+            <nav>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <ui style="display: flex;">
+                            <li  class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="home.html">home</a></li>
+                        </ui>
+                    </div>
+                    <div>
+                        <ui style="display: flex;">
+                            <li id="signup"  class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="signup.html">signup</a></li>
+                            <li id="login" class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="login.html">login</a></li>
+                            <li id="name" class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="">username</a></li>
+                            <li id="logout" class="p-[10px]" style="list-style: none; font-size: 20px;"><a href="">logout</a></li>
+                        </ui>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <center>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <div style=" min-height: 100px; padding: 50px 0px; border-radius: 25px; width: 400px; background-color: #b3cdfa;">
+                <form action=""><br>
+                    <input type="email" id="email"  placeholder="email" class="border" ><br><br>
+                    <input type="text"  id="password" placeholder="password" class="border" ><br><br>
+                    <button type="submit" id="submit" class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"> signup </button>
+                </form>
+            </div>
+        </div>
+    </center>
+</body>
+<script src="../js/nav.js"></script>
+<script>
+     document.getElementById("submit").addEventListener("click",(e)=>{
+        e.preventDefault()
+
+        let obj = {
+            password:document.getElementById("password").value,
+            email:document.getElementById("email").value
+
+        }
+        console.log(obj);
+        fetch("http://localhost:8090/user/login",{
+            method:"POST",
+            headers:{"content-type":"application/json"},
+            body:JSON.stringify(obj)
+        })
+        .then((data)=>data.json())
+        .then((res)=>{console.log(res) 
+        document.cookie= `username = ${res.username}; path=/;`
+        console.log(res.username);
+        })
+        .catch((error)=>alert(error))
+    })
+</script>
+</html>
